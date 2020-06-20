@@ -2,7 +2,7 @@
 
 # 紀錄 Javascript 30 練習 
 
-原Github位址：[wesbos/Javascript30](https://github.com/dustinhsiao21/Javascript30-dustin)
+原Github位址：[wesbos/Javascript30](https://github.com/wesbos/JavaScript30)
 
 ### 摘要
 
