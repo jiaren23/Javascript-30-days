@@ -1,3 +1,4 @@
+// 渲染 DIV 的 DATA
 const data = [
     { key: 65, kbd: "A", sp_class: "clap" },
     { key: 83, kbd: "S", sp_class: "hihat" },
@@ -25,36 +26,37 @@ const data = [
     document.querySelector(".keys").innerHTML = str
 })();
 
-
+// 監聽 KEY DOWN 
 window.addEventListener('keydown', keyHandler);
-
 function keyHandler(event) {
     // 觸發音樂
     const music = document.querySelector(`audio[data-key="${event.keyCode}"]`)
-    if (!music) {
+    if (!music) { // 排除 按到非自行指定的鍵
         return
     }
-    music.currentTime = 0;
+    music.currentTime = 0; // 讓按鍵聲音可以重複撥放的迅速 設成 0 讓每次重新按下播放當下可以立刻從 0 秒開始播起(不用等到整段音訊結束)
     music.play();
 
     // 觸發鍵特效
     const layout = document.querySelector(`div[data-key="${event.keyCode}"]`)
-    if (!layout) {
+    if (!layout) { // 排除 按到非自行指定的鍵
         return
     }
     layout.classList.add('playing')
-
-    console.log(music,layout)
-
+    console.log(music, layout)
 }
 
+/* 以下為解決按下按鈕後有套上 palying 的 css 在結束後要收回 動畫
+   於是對每個 key class 進行監聽 */
 const keys = document.querySelectorAll('.key');
 keys.forEach((key) => {
     console.log(key)
     key.addEventListener('transitionend', removeTransation);
 })
-
+/*這裡有個重點 因為 針對 key class 做的動畫屬性有很多，那 transitioned 會因此進行多次的重複觸發
+  所以縱使指監聽一次還是會重複觸發 */
 function removeTransation(event) {
+    //  console.log(e) // 這裡就可以 console 出許多的 動畫結束 ， 然後我只針對 其中的 e.propertyName 做 動作即可
     if (event.propertyName == 'transform') {
         event.currentTarget.classList.remove('playing')
     }
@@ -62,41 +64,3 @@ function removeTransation(event) {
 
 
 
-
-// const recordAudio = () =>
-//   new Promise(async resolve => {
-//     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//     const mediaRecorder = new MediaRecorder(stream);
-//     const audioChunks = [];
-
-//     mediaRecorder.addEventListener("dataavailable", event => {
-//       audioChunks.push(event.data);
-//     });
-
-//     const start = () => mediaRecorder.start();
-
-//     const stop = () =>
-//       new Promise(resolve => {
-//         mediaRecorder.addEventListener("stop", () => {
-//           const audioBlob = new Blob(audioChunks);
-//           const audioUrl = URL.createObjectURL(audioBlob);
-//           const audio = new Audio(audioUrl);
-//           const play = () => audio.play();
-//           resolve({ audioBlob, audioUrl, play });
-//         });
-
-//         mediaRecorder.stop();
-//       });
-
-//     resolve({ start, stop });
-//   });
-
-// const sleep = time => new Promise(resolve => setTimeout(resolve, time));
-
-// (async () => {
-//   const recorder = await recordAudio();
-//   recorder.start();
-//   await sleep(3000);
-//   const audio = await recorder.stop();
-//   audio.play();
-// })();
