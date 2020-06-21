@@ -16,5 +16,5 @@ window.addEventListener('keydown', keyHandler);
 
 ### 代辦項目
 
-1. Reacor Audio and Replay 
+1. Record Audio and Replay 
 
