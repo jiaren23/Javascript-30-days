@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>( JS-switch version )</title>
+  <style>
+    body {
+      text-align: center;
+      background: #193549;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+    img {
+      padding: 10px;
+      background: #ffc600;
+      filter: blur(10px);
+    }
+    .controls {
+      margin-bottom: 50px;
+    }
+    input {
+      width: 100px;
+    }
+    .h1{
+      color:#ffc600;
+    }  
+  </style>
+</head>
+<body>
+  <h2>Update CSS Variables with <span class='h1'>JS</span> ( JS-switch version )</h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    <label for="base">Base Color</label>
+    <input id="base" type="color" name="base" value="#ffc600">
+  </div>
+
+  <img id="image" src="./cat.jpg">
+
+  <script>
+  // querySelectorAll 選出來的東西類似 Array ，有 Array 的 key值 、 length 、 forEach ， 但沒有 map 等等
+    // 他主要就是個 NodeList 
+    const inputs = document.querySelectorAll('input'); 
+
+    function changeHandler(){
+      console.log(this.name, this.value)
+      console.log(document.querySelector('.h1')
+)
+      // 原始js switch 寫法
+      switch(this.name){
+        case 'spacing': 
+          document.querySelector('#image').style.padding = this.value + "px"
+          break
+        case 'blur': 
+          document.querySelector('#image').style.filter = `blur(${this.value}px)`
+          break
+        case 'base': 
+          document.querySelector('#image').style.background = this.value; 
+          document.querySelector('.h1').style.color = this.value; // 這行代表如果我換顏色的時候如果連標題也想一起換 那需要再綁一次DOM 
+        
+          break
+      }
+
+    }
+    inputs.forEach(function(input){
+      input.addEventListener('change',changeHandler) // onchange 在滑鼠拖曳input 時不會即時反應，只有放掉滑鼠按鍵當下才有(最後值)
+      input.addEventListener('mousemove',changeHandler) // 增添一個mousemove是為了 改善 以上
+    })          
+  </script>
+</body>
+</html>
