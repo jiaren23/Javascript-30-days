@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+    
+  <script>
+
+    const secondHand = document.querySelector('.second-hand');
+    const minHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    function setClock(){
+      const data = new Date() ;
+      // 時鐘上的一格就是6度(360/60)
+      // let secondDeg = data.getSeconds() * 6 ; // 秒針每秒觸及的時候 指針要走6度 
+      // let minDeg = data.getMinutes() * 6 ; // 分針每分觸及的時候要走 6 度
+      // let hourDeg = data.getHours() * 30 //  時針每小時觸及 則要走 30度 (錶面上只有12時制 所以 360/12)
+      let secondDeg = data.getSeconds() * 6; 
+      let minDeg = data.getMinutes() * 6 + ((data.getSeconds() * 6) / 60 ); // 增加分針更新度數頻率
+      let hourDeg = data.getHours() * 30 + ((data.getMinutes() * 30) / 60 ); // 增加時針更新度數頻率
+
+      secondHand.style.transform = `rotate(${secondDeg}deg)`;
+      minHand.style.transform = `rotate(${minDeg}deg)`;
+      hourHand.style.transform = `rotate(${hourDeg}deg)`;
+    }
+
+  //  setInterval 版本
+    setClock(); // init 初始時間
+    setInterval(setClock,1000);
+
+  // setTimeout 版本 重複呼叫自己
+  //  function reSetClock(){
+  //     setClock();
+  //     setTimeout(reSetClock,1000)
+  //   }
+  //   setTimeout(reSetClock,1000)
+
+  // requestAnimationFrame 版本 :只要畫面有變動要求就 處理畫面更新的setTimeout
+  // function animationHandler(){
+  //   setClock();
+  //   requestAnimationFrame(animationHandler);
+  // }
+  // requestAnimationFrame(animationHandler);
+
+
+  </script>
+</body>
+</html>
