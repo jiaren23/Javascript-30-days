@@ -4,7 +4,7 @@
 
 0. 有別於作者原始碼，一開始透過 `Javascript組字串` 方式載入DOM
 1. 起手式 : 針對鍵盤事件進行監聽
-```
+```js
 window.addEventListener('keydown', keyHandler);
 ```
 
