@@ -35,7 +35,7 @@
 7. 第七題 - 按姓氏字母順序對人進行排序<br />
    `.sort()` 進階應用 、 `.split` 應用
    此題有使用陣列解構寫法 , 解構基本範例如下
-   ```
+   ```js
     let str = 'a.b.c.d.e' ;
     arr = str.split('.') ;         // .split() 以後 會變成陣列
     let [one,two, ...three] = arr;
