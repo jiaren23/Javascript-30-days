@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1815, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+
+    // 這裡新增一個 壽命欄位
+    inventors.forEach((item) => {
+      return item.lived = item.passed - item.year
+    })
+
+// 1. 篩選1500年代出生的發明者的名單  :  Array.prototype.filter()
+    // 用以 return true 或 false 的結果 (不影響原始陣列)(要你對陣列做篩選) , 複製一份新陣列出來 並保留你原本的陣列 
+    const ansFilter = inventors.filter(item=>{item.year>=1500 && item.year<1600})
+    console.table(ansFilter)
+
+
+// 2. 給我們一系列發明人的名字和姓氏 : Array.prototype.map()
+    // 用以return 新的內容 (不影響原始陣列)(產生一個新的內容) , map 會產出一個新內容 所以你只要 return 新內容即可
+    const ansMap = inventors.map(item=>{
+      return item.first + " "+ item.last
+    })
+    console.table(ansMap)
+
+
+// 2.5 第二題使用forEach 解答 : Array.prototype.forEach()
+    // map 與 forEach 都是針對每個人做事 , 但 forEach 無法產出一個新陣列
+    const ansForEach = inventors.forEach(item=>{
+      return item.first+" "+item.last
+    })
+    console.table(ansForEach) // undefine
+    // 假如要 forEach 進行如同map 一樣效果，則得先 自己產一個新的空陣列 再推進去再推進去陣列裡面(其實就是原始的for迴圈概念)
+    let arr = [];
+    inventors.forEach(item=>{
+      return arr.push( item.first + " " + item.last)
+    })
+    console.table(arr)
+
+
+// 3.按出生日期（最老到最小）對發明人進行排序  :　Array.prototype.sort()
+    /*  一般對陣列直接進行 .sort() 方法時會使陣列內數字、字串做升冪排列 , 但 MDN 表示 sort 排序不一定是穩定的（stable）
+    　  所以大部分我們在用 sort 會加入參數 a & b 使結果 return a-b  或是 b-a 來達到欲升冪或降冪排列 。 
+      　內部原理 : 如果 a-b < 0  那就 a 擺前面 , 如果a-b == 0 那a與b順序不變 , 如果 b-a > 0 那 b擺前面 
+      　針對以下寫法 我有改過題目 Max 與  Ada 的出生年 改成一樣 , 那以下寫法將使年份一樣的人順序保持不動，但作者寫法會使順序變動  */
+    
+    // 我的寫法
+    const ansSort = inventors.sort((a, b)=>{
+      return a.year - b.year; // -(b.year-a.year)
+    });
+    console.table(ansSort);
+
+    // 作者寫法
+    const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1); // 這寫法變成 只要不是 a>b 的都會讓 b 在前面
+    console.table(ordered);
+
+
+// 4.所有發明人在一起生活了多少年？  :  Array.prototype.reduce()
+    // 早期沒有 reduce 會使用以下寫法
+    let agesTotal = 0;
+    inventors.forEach(item=>{
+      agesTotal += (item.passed - item.year)
+    })
+    console.log(agesTotal)
+
+    // reduce 寫法        reduce要給的兩個參數 : ( 你要執行的function , 對應函式低一個參數的初始值 )
+    const Total = inventors.reduce((total,item)=>{  // 函式裡的第一個參數等同於上面 的 let agesTotal = 0; 的給定初始
+      return total+ (item.passed - item.year)
+    },0)
+    console.log(Total)
+
+
+// 5.按年限排序發明人
+    const lived = inventors.sort((a,b)=>{
+      return (a.passed - a.year)-(b.passed - b.year)
+    })
+    console.table(lived)
+
+
+// 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name 
+    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+    // 我的寫法
+    // let ary = [];
+    // document.querySelectorAll('.mw-category-group li a').forEach((a)=>{
+    //   ary.push(a.title)
+    // })
+    // let ans = ary.filter((title)=>{
+    //   return title.indexOf('de') !== -1
+    // })
+
+    // 作者寫法
+    // const category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a')); // 這裡為了解決.querySelectorAll出來的是nodelist 無法用map 的問題,所以使用 Array.from
+    // const de = links
+    //             .map(link => link.textContent)
+    //             .filter(streetName => streetName.includes('de'));
+
+
+
+
+const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+
+// 7. sort 練習 : 按姓氏字母順序對人進行排序
+    const alpha = people.sort((a, b) => {
+    const [aFirst, aLast] = a.split(', ');  // 逗號空一格表示我依照上面的陣列裡的形式去切開他
+    const [bFirst, bLast] = b.split(', ');
+    return aLast > bLast ? 1 : bLast > aLast ? -1 : 0
+
+    // 不解構寫法
+    // let ary1 = a.split(', '); // ary1[0] : first  ,  ary[1] : last
+    // let ary2 = b.split(', ');
+    // return ary1[1] > ary2[1] ? 1 : ary2[1] >  ary1[1] > ? -1 : 0
+
+    });
+    console.table(alpha);
+
+
+
+// 8. Reduce 練習
+    // Sum up the instances of each of these (加總每個陣列個出現幾次)
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+    const ans = data.reduce((obj, item) => {
+      if (!obj[item]) obj[item] = 1;
+      else obj[item] += 1;
+      return obj
+    }, {})
+    console.table(ans)
+
+  </script>
+</body>
+</html>
