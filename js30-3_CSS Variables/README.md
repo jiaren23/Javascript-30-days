@@ -7,7 +7,7 @@
 0. 使用 `CSS3 變數` 寫法，有別於以往使用 JS 要透過操作 DOM 的 Style ， 而是直接操作  CSS 變數
 1. `:root` 代表 html tag
 2. css 變數寫法 : `--定義變數`  後續使用 `var(--定義的變數)` 取用
-```
+```css
  :root {
       --base: #ffc600;
       --spacing: 10px;
@@ -21,7 +21,7 @@
     }
 ``` 
 3. `querySelectorAll` 選出來的東西類似 Array，有 Array 的 key值 、 length 、 forEach ， 但沒有 map 等等 ..  他主要就是個 `NodeList`
-```
+```js
 document.querySelectorAll(' ')
 ```   
 
