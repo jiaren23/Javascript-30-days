@@ -5,7 +5,7 @@
 
 0. 透過抓取 `new Date()` 相關精確時間賦予到 DOM Style 的 `transform: rotate; 即可 讓指針移動` 使指針改變，以下寫法取得時間並賦予該對應的錶面度數 :
 
-    ```
+    ```js
     const data = new Date() ;
     let secondDeg = data.getSeconds() * 6; 
     let minDeg = data.getMinutes() * 6 + ((data.getSeconds() * 6) / 60 ); // 增加分針更新度數頻率
@@ -14,13 +14,13 @@
 1. 處理畫面更新的方法有三種 : 
    
    setInterval : 標準版
-   ```
+   ```js
     setClock(); // init 初始時間
     setInterval(setClock,1000);
    ``` 
 
    setTimeout : 透過重複呼叫自己
-   ```
+   ```js
     function reSetClock(){
       setClock();
       setTimeout(reSetClock,1000)
@@ -29,7 +29,7 @@
    ```
 
     requestAnimationFrame : 只要畫面有變動要求就 處理畫面更新的setTimeout
-   ```
+   ```js
     function animationHandler(){
      setClock();
      requestAnimationFrame(animationHandler);
