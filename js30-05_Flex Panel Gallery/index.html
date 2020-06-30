@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Flex Panels 💪</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="panels">
+    <div class="panel panel1">
+      <p>Hey</p>
+      <p>Let's</p>
+      <p>Dance</p>
+    </div>
+    <div class="panel panel2">
+      <p>Give</p>
+      <p>Take</p>
+      <p>Receive</p>
+    </div>
+    <div class="panel panel3">
+      <p>Experience</p>
+      <p>It</p>
+      <p>Today</p>
+    </div>
+    <div class="panel panel4">
+      <p>Give</p>
+      <p>All</p>
+      <p>You can</p>
+    </div>
+    <div class="panel panel5">
+      <p>Life</p>
+      <p>In</p>
+      <p>Motion</p>
+    </div>
+  </div>
+  <script>
+
+    function clickHandler() {
+      this.classList.toggle("open"); // 添加 open class 進去
+    }
+
+    function transitionendHandler(e) {
+      /* 因為 open class 製造的動畫效果有 font-size 與 flex 展開效果 , 所以這裡要針對 我要focus 的 flex 變化去 進行transitionend 監聽 
+        , 避免多次觸發 , 造成原本字體接收到font-size變化於是飛進來了,但很快的又接收到flex 展開所以又被觸發一次toggle 導致字體又迅速飛出去
+        這種狀況當屬性次數是偶數會造成效果牴觸看不到,多次觸發也造成效能差 , 所以要針對某項東西去做處理即可 */
+      console.log(e) // 這裡可以觀察到 觸發了 兩種事件
+      if (e.propertyName.indexOf('flex') !== -1) {  //if (e.propertyName.includes('flex'))
+        this.classList.toggle('open-active')
+      }
+    }
+
+    const panels = document.querySelectorAll('.panel');
+    
+    panels.forEach((item) => {
+      // 以下為何分成兩段動畫 : 因為字體飛進來是想要在 開和動畫(flex:3) 結束後 才執行
+      item.addEventListener('click', clickHandler); // 第一段動畫
+      item.addEventListener('transitionend', transitionendHandler); // 第二段 字體飛進來
+    })
+
+  </script>
+
+
+
+</body>
+
+</html>
