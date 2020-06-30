@@ -1,3 +1,4 @@
+﻿﻿![](../image/day01.png)
 # Drum kit
 
 ### 摘要

@@ -1,3 +1,4 @@
+﻿﻿![](../image/day02.png)
 # JS and CSS Clock
 
 

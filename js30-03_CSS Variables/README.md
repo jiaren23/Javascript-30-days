@@ -1,3 +1,4 @@
+﻿﻿![](../image/day03.png)
 # CSS Variables
 
 ### 以上有 Javascript switch 、 CSS Varibale 兩種寫法

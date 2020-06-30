@@ -48,14 +48,14 @@
     ex: 本範例中 `.open` class 製造的動畫效果有 `font-size 變化` 與 `flex 展開` 效果 ,  如果未 focus 在欲進行 監聽 的動畫 , 將造成原接收到 font-size 變化 要飛進來的 p 段落因為很快的又接收到 flex 展開 所以又被觸發一次 toogle 導致字體又迅速飛出去。
 
 3. 這裡針對 `1.` 以及 `2.`所提及部分 , 在使用 監聽事件 `transitionend` 時要特別注意 , 必須寫成判別有 `flex` 字串出現即可為真 ,  並 進行監聽動作 : <br>
-    ```html
-        <script>
+    ```js
+        
             function transitionendHandler(e){
             console.log(e) // 這裡可以觀察到 觸發了 兩種事件
             if(e.propertyName.indexOf('flex') !== -1){    //if (e.propertyName.includes('flex'))
                 this.classList.toggle('open-active')
             }
-        </script>
+        
     ```
 
    
