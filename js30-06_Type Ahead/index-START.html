@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+  <script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    let cities = null;
+    fetch(endpoint)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (completedData) {
+        cities = completedData
+        console.table(cities)
+      });
+
+    const searchInput = document.querySelector('.search');  // 選取 input
+    searchInput.addEventListener('change', displayMatches); // render 火柴效果 ( 查找事件 displayMatches )
+    searchInput.addEventListener('keyup', displayMatches);  // render 火柴效果 ( 查找事件 displayMatches )
+
+    /* 以下 是渲染 的函式 , 其中有幾樣動作要做 :
+       1. 確定 搜索到的內容是否與 城市 或 州 匹配  ===>>>   findMatches()
+          函式會 return 所有符合 城市 或 州 裡單字與你輸入的英文有關的 Array 回來
+       2. 然後 對那些 return 的 Array 進行 map()
+       3. map() 的內容撰寫要點 : 
+          (1) 為了塘塞反白關鍵字的 class 進去 render 出來的火柴內容必須使用 .repalce() 來將 input 的值帶換成 <span class="">的內容。
+          (2) render 的內容還有   population(人口) , 那為了使其達成 國外數字只要 超過 3 位數就要逗點 "," 的效果  ex: 1,222,333 就在使用一次正則 來 replace()    
+       4. return 組字串   */
+    function displayMatches() {
+      const matchArray = findMatches(cities, this.value);   // findMatches 帶進( 城市 , 輸入框的 value )兩參數
+      console.log(matchArray)                               // 這裡可以 console 出跟你輸入的英文字有匹配的 城市 或 州
+      const html = matchArray.map(place => {                // 資料冠上 正則 以後 , 把資料重新 map 
+        const regex = new RegExp(this.value, 'gi');         // 這裡再一次將 input 的值給 正則化      例如輸入 d  那 console.log(regex) // print: /d/gi 
+        const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);   // 這裡將 有符合 regex 都取代成  `<span class="hl">${this.value}</span>`
+        const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+        const populationNum = numberWithCommas(place.population)                               // 最後再處理人數的顯示處理問題
+        return `<li>
+                  <span class="name">${cityName}, ${stateName}</span>
+                  <span class="population">${populationNum}</span>  
+                </li> `;
+      }).join('');                                          // join():把arrayObject中的所有元素放入一個字串中。
+
+      const suggestions = document.querySelector('.suggestions');
+      suggestions.innerHTML = html;
+    }
+
+    function findMatches(cities, inputValue) {
+      return cities.filter(item => {
+        // 這裡要確定 搜索到的內容是否與 城市 或 州 匹配
+        const regex = new RegExp(inputValue, 'gi');  // RegExp():用來做正規表達示的參數， g代表global,i代表insensitive,不受大小寫影響
+        return item.city.match(regex) || item.state.match(regex) // 只要 city 或 state 其中一樣有匹配到救回傳
+      });
+    }
+
+      // 用numberWithCommas處理正規表達試的問題
+      //  "/"開頭與結尾 , "g" 全域
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 這裡實現每3位數就有一個逗點 ex: 1,222,333
+    }
+
+  </script>
+</body>
+
+</html>

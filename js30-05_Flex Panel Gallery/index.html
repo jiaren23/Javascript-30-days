@@ -47,6 +47,7 @@
         , 避免多次觸發 , 造成原本字體接收到font-size變化於是飛進來了,但很快的又接收到flex 展開所以又被觸發一次toggle 導致字體又迅速飛出去
         這種狀況當屬性次數是偶數會造成效果牴觸看不到,多次觸發也造成效能差 , 所以要針對某項東西去做處理即可 */
       console.log(e) // 這裡可以觀察到 觸發了 兩種事件
+      console.log(e.propertyName) // 這裡可以觀察到 觸發了 兩種事件
       if (e.propertyName.indexOf('flex') !== -1) {  //if (e.propertyName.includes('flex'))
         this.classList.toggle('open-active')
       }
