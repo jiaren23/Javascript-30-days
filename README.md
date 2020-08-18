@@ -49,4 +49,12 @@
 * `.replace()`
 * `.match()`
   
+#### Day 7 : Array Card Day 2 - 陣列操作練習 第二天
+* 介紹 JS array的使用
+* `some()` 
+* `every() ` 
+* `find()`
+* `findIndex()`
+* `splice()`
+* `slice()`
   
