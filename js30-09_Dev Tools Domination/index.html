@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // let console = {
+    //     isDev : true,  // true 可印 console   false 關閉所有 console關閉所有 console
+    //     log(...args){
+    //         if(!this.isDev) return;
+    //         window.console.log(...args);
+    //     },
+    //     warn(...args){
+    //         if(!this.isDev) return;
+    //         window.console.warn(...args);
+    //     },
+    //     error(...args){
+    //         if(!this.isDev) return;
+    //         window.console.error(...args);
+    //     },
+    // };
+
+    // Regular
+    console.log(12346);
+
+    // Interpolated
+    console.log(" My name is %s " , "leon");  // 目前主流還是 ES6 的 template string
+    console.log(" I have %f sollors " , 10.5);
+    console.log(" I have %d sollors " , 10.5);
+    
+    // Styled
+    // 常見於 放 徵才廣告
+    console.log(" %c 住手" , "font-size:60px; color:red");
+
+    // warning!
+    console.warn("警告")
+    
+
+    // Error 
+    console.error("錯誤")
+
+    // Info
+    console.info(" info 類似於 log")
+
+    // Testing 測試  
+    // assert 會有兩個參數 , 如果第一個參數結果是 true 將正常不發生任何事 , 但如果是 以下狀況 , 則 印出 提示訊息
+    console.assert(false , " 訊息 ... ");
+    console.assert("" , " 訊息 ... ");
+    console.assert(0 , " 訊息 ... ");
+    console.assert(NaN , " 訊息 ... ");
+    console.assert(null , " 訊息 ... ");
+    console.assert(undefined , " 訊息 ... ");
+
+    // clearing
+    // console.clear();
+    
+    // Viewing DOM Elements
+    // log 與 dir 差異 : log 秀出 html / dir 秀出 屬性
+    let p = document.querySelector('p');
+    console.log(p);    // 印出 html 格式
+    console.log(dogs); // 印出 array
+     
+   
+    console.dir(p);    // dir 可以展開 其所有屬性點可使用的功能
+    console.dir(dogs);
+
+    // Grouping together 
+    console.table(dogs)
+    console.table(dogs,['name']) // 也可以針對我想看的欄位做打印就好 , 用於如果資料量真的很大 可以針對某欄位做檢視即可
+    // counting
+
+    // timing
+
+  </script>
+</body>
+</html>
