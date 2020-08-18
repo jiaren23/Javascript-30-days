@@ -23,10 +23,6 @@
       { text: 'Ramen is my fav food ever', id: 123523 },
       { text: 'Nice Nice Nice!', id: 542328 }
     ];
-
-    // Some and Every Checks
-    // Array.prototype.some() // is at least one person 19 or older?
-    // Array.prototype.every() // is everyone 19 or older?
     
     // some 
     // 判斷有無超過 19 歲的人 , 只要有一個 即顯示 true
@@ -66,19 +62,6 @@
     })
     console.log(ansFindIndex)
     
-    // find : 找本體
-    // findIndex : 找編號排序
-
-    // Array.prototype.find()
-    // Find is like filter, but instead returns just the one you are looking for
-    // find the comment with the ID of 823423
-
-    // Array.prototype.findIndex()
-    // Find the comment with this ID
-
-
-
-  
 
     // splice 
     // 刪掉 ID 為 823423 的陣列內容
@@ -93,17 +76,6 @@
     console.log("slice -  " , ansSlice)
     console.log("slice - 切完後 , 驗證原始資料沒被動到 " , comments) // 要驗證這裡要先將 上方 splice 給註解掉,因為他有動到原始資料
 
-    // delete the comment with the ID of 823423
-
-    // splice : 可以刪掉東西 , 也可以在特定位置加入東西 (他會直接處理、修改原始資料)
-
-
-    // slice : 可以類似複製一份資料出來 (不會動到原始資料) =>>>>>  其概念便是 假如我有6筆資料 然後 第 3 筆資料要刪除 , 我就把 1 2 筆抓出來(切頭) , 4 5 6 筆抓出來(切尾) , 在解構 再一起 。 便可以再不修改遠使 SERVER 資料傳來的情況下更改資料顯示 , 如真的需要更改則由 SERVER 負責修改
-    // const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
-    // let aa = animals.slice(0,2)
-    // let bb = animals.slice(2+1)
-    // let cc = [...aa,...bb]   // [...animals.slice(0,2),...animals.slice(2+1)]
-    // console.log(cc)
   
   </script>
 </body>
