@@ -18,7 +18,7 @@
     }
 
     // let console = {
-    //     isDev : true,  // true 可印 console   false 關閉所有 console關閉所有 console
+    //     isDev : true, 
     //     log(...args){
     //         if(!this.isDev) return;
     //         window.console.log(...args);
@@ -48,7 +48,6 @@
     // warning!
     console.warn("警告")
     
-
     // Error 
     console.error("錯誤")
 
@@ -71,18 +70,50 @@
     // log 與 dir 差異 : log 秀出 html / dir 秀出 屬性
     let p = document.querySelector('p');
     console.log(p);    // 印出 html 格式
-    console.log(dogs); // 印出 array
+    console.log(dogs); // 印出 array 
      
-   
     console.dir(p);    // dir 可以展開 其所有屬性點可使用的功能
     console.dir(dogs);
 
-    // Grouping together 
+    // table 自行額外補充
     console.table(dogs)
     console.table(dogs,['name']) // 也可以針對我想看的欄位做打印就好 , 用於如果資料量真的很大 可以針對某欄位做檢視即可
+
+
+    // Grouping together
+    dogs.forEach(dog => {
+    console.groupCollapsed(`${dog.name}`);
+    console.log(`This is ${dog.name}`);
+    console.log(`${dog.name} is ${dog.age} years old`);
+    console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+    console.groupEnd(`${dog.name}`);
+    });
+
     // counting
 
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+    console.table(dogs);
 
   </script>
 </body>

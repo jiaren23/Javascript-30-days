@@ -57,4 +57,19 @@
 * `findIndex()`
 * `splice()`
 * `slice()`
+
+#### Day 9 : Dev Tools Domination - console 的多種方法 
+* 介紹 DevTools Console 的使用
+* `console.log()` 
+* `console.warn()` 
+* `console.error()`
+* `console.info()`
+* `console.assert()`
+* `console.clear()`
+* `console.dir()`
+* `console.table()`
+* `console.groupCollapsed()`
+* `console.groupEnd()`
+* `console.count()`
+* `console.time()`
   
