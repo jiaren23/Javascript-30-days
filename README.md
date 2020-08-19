@@ -72,4 +72,7 @@
 * `console.groupEnd()`
 * `console.count()`
 * `console.time()`
-  
+
+#### Day 10 : Hold Shift and Check Checkboxes - 滑鼠click + shift鍵後 可多選 checkbox 
+*  `slice` 搭配 `Math.min` 和 `Math.max` 使用
+* `Array.from` 將類陣列轉為陣列 
